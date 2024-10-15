@@ -259,7 +259,7 @@ private:
                 advance();
             }
             if (!isdigit(currentChar) && !isspace(currentChar) && currentChar != EOF) {
-                while (!isdigit(currentChar) && currentChar != EOF) {
+                while (!isspace(currentChar) && currentChar != EOF) {
                     int_num += currentChar;
                     advance();
                 }
