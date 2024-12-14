@@ -7,28 +7,41 @@ class Lexer {
 private:
     std::ifstream inputFile;
     std::ofstream outputFile;
+
+
+    long long tabs;
+
+    std::string filename;
+    std::string filename2;
     HashTable hashTable;
     char currentChar;
 
-    void advance() {
+    void advance(std::ifstream& inputFile) {
         currentChar = inputFile.get();
+    }
+public:
+    long long getTab() {
+        return tabs;
     }
 
     Token getNextLexem() {
-
-        while (isspace(currentChar)) advance();
+        while (currentChar == '\n') {//		currentChar	10 '\n'	char
+            ++tabs;
+            advance(inputFile);
+        }
+        while (isspace(currentChar)) advance(inputFile);
         if (currentChar == '(' || currentChar == ')' || currentChar == '{' || currentChar == '}') {
             std::string bracket;
 
             bracket += currentChar;
-            advance();
-            if (isspace(currentChar)) {
+            advance(inputFile);
+            if (isspace(currentChar) || currentChar == EOF) {
                 return Token("bracket", bracket);
             }
 
             while (!isspace(currentChar) && currentChar != EOF) { ////////////////////////////////////////
                 bracket += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", bracket);
         }
@@ -36,32 +49,31 @@ private:
         if (currentChar == 'i') {
             std::string id_name;
             id_name += currentChar;
-            advance();
-
+            advance(inputFile);
             if (currentChar == 'n') {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
                 if (currentChar == 't') {
                     id_name += currentChar;
-                    advance();
+                    advance(inputFile);
                     if (isspace(currentChar) || currentChar == EOF) {
-                        advance();
+                        advance(inputFile);
                         return Token("Type", id_name);
                     }
                 }
             }
             else if (currentChar == 'f') {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
                 if (isspace(currentChar) || currentChar == EOF) {
-                    advance();
+                    advance(inputFile);
                     return Token("Cond", id_name);
                 }
             }
 
             while (isalpha(currentChar) && currentChar != EOF) {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
             }
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("id_name", id_name);
@@ -69,7 +81,7 @@ private:
             
             while (!isspace(currentChar) && currentChar != EOF) {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", id_name);
         }
@@ -77,7 +89,7 @@ private:
         if (currentChar == '=') {
             std::string relop;
             relop += currentChar;
-            advance();
+            advance(inputFile);
             
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("RelOper", relop);
@@ -85,14 +97,14 @@ private:
 
             if (currentChar == '=') {
                 relop += currentChar;
-                advance();
+                advance(inputFile);
             }
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("RelOper", relop);
             }
             while (!isspace(currentChar) && currentChar != EOF) {
                 relop += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", relop);
         }
@@ -100,7 +112,7 @@ private:
         if (currentChar == '!') {
             std::string relop;
             relop += currentChar;
-            advance();
+            advance(inputFile);
 
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("unknown", relop);
@@ -108,14 +120,14 @@ private:
 
             if (currentChar == '=') {
                 relop += currentChar;
-                advance();
+                advance(inputFile);
             }
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("RelOper", relop);
             }
             while (!isspace(currentChar) && currentChar != EOF) {
                 relop += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", relop);
         }
@@ -123,7 +135,7 @@ private:
         if (currentChar == '>') {
             std::string relop;
             relop += currentChar;
-            advance();
+            advance(inputFile);
 
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("RelOper", relop);
@@ -131,14 +143,14 @@ private:
 
             if (currentChar == '=') {
                 relop += currentChar;
-                advance();
+                advance(inputFile);
             }
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("RelOper", relop);
             }
             while (!isspace(currentChar) && currentChar != EOF) {
                 relop += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", relop);
         }
@@ -146,7 +158,7 @@ private:
         if (currentChar == '<') {
             std::string relop;
             relop += currentChar;
-            advance();
+            advance(inputFile);
 
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("RelOper", relop);
@@ -154,14 +166,14 @@ private:
 
             if (currentChar == '=') {
                 relop += currentChar;
-                advance();
+                advance(inputFile);
             }
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("RelOper", relop);
             }
             while (!isspace(currentChar) && currentChar != EOF) {
                 relop += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", relop);
         }
@@ -169,19 +181,19 @@ private:
         if (currentChar == 'e') {
             std::string id_name;
             id_name += currentChar;
-            advance();
+            advance(inputFile);
 
             if (currentChar == 'l') {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
                 if (currentChar == 's') {
                     id_name += currentChar;
-                    advance();
+                    advance(inputFile);
                     if (currentChar == 'e') {
                         id_name += currentChar;
-                        advance();
+                        advance(inputFile);
                         if (isspace(currentChar) || currentChar == EOF) {
-                            advance();
+                            advance(inputFile);
                             return Token("Cond", id_name);
                         }
                     }
@@ -190,7 +202,7 @@ private:
 
             while (isalpha(currentChar) && currentChar != EOF) {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
             }
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("id_name", id_name);
@@ -198,7 +210,7 @@ private:
 
             while (!isspace(currentChar) && currentChar != EOF) {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", id_name);
         }
@@ -206,7 +218,7 @@ private:
         if (currentChar == ';' || currentChar == ',') {
             std::string str;
             str += currentChar;
-            advance();
+            advance(inputFile);
 
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("Comma", str);
@@ -214,7 +226,7 @@ private:
             
             while (!isspace(currentChar) && currentChar != EOF) {
                 str += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", str);
         }
@@ -222,7 +234,7 @@ private:
         if (currentChar == '+' || currentChar == '-') {
             std::string str;
             str += currentChar;
-            advance();
+            advance(inputFile);
 
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("Sign", str);
@@ -230,7 +242,7 @@ private:
 
             while (!isspace(currentChar) && currentChar != EOF) {
                 str += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", str);
         }
@@ -239,12 +251,12 @@ private:
             std::string id_name;
             while (isalpha(currentChar)) {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
             }
             if (!isalpha(currentChar) && !isspace(currentChar) && currentChar != EOF) {
                 while (!isspace(currentChar) && currentChar != EOF) {
                     id_name += currentChar;
-                    advance();
+                    advance(inputFile);
                 }
                 return Token("unknown", id_name);
             }
@@ -256,12 +268,12 @@ private:
             std::string int_num;
             while (isdigit(currentChar)) {
                 int_num += currentChar;
-                advance();
+                advance(inputFile);
             }
             if (!isdigit(currentChar) && !isspace(currentChar) && currentChar != EOF) {
                 while (!isspace(currentChar) && currentChar != EOF) {
                     int_num += currentChar;
-                    advance();
+                    advance(inputFile);
                 }
                 return Token("unknown", int_num);
             }
@@ -272,24 +284,24 @@ private:
         if (currentChar == 'r') {
             std::string id_name;
             id_name += currentChar;
-            advance();
+            advance(inputFile);
             if (currentChar == 'e') {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
                 if (currentChar == 't') {
                     id_name += currentChar;
-                    advance();
+                    advance(inputFile);
                     if (currentChar == 'u') {
                         id_name += currentChar;
-                        advance();
+                        advance(inputFile);
                         if (currentChar == 'r') {
                             id_name += currentChar;
-                            advance();
+                            advance(inputFile);
                             if (currentChar == 'n') {
                                 id_name += currentChar;
-                                advance();
+                                advance(inputFile);
                                 if (isspace(currentChar) || currentChar == EOF) {
-                                    advance();
+                                    advance(inputFile);
                                     return Token("Key", id_name);
                                 }
                             }
@@ -300,7 +312,7 @@ private:
 
             while (isalpha(currentChar) && currentChar != EOF) {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
             }
             if (isspace(currentChar) || currentChar == EOF) {
                 return Token("id_name", id_name);
@@ -308,7 +320,7 @@ private:
 
             while (!isspace(currentChar) && currentChar != EOF) {
                 id_name += currentChar;
-                advance();
+                advance(inputFile);
             }
             return Token("unknown", id_name);
         }
@@ -320,22 +332,44 @@ private:
         std::string unknown = "";
         while (!isspace(currentChar) && currentChar != EOF) {
             unknown += currentChar;
-            advance();
+            advance(inputFile);
         }
         return Token("unknown", unknown);
         
     }
 
+    void advance() {
+        currentChar = inputFile.get();
+    }
 
-public:
-    Lexer(const std::string& filename, const std::string& filename2)  {
-        inputFile.open(filename);
-        outputFile.open(filename2);
+    Lexer(const std::string& f="", const std::string& f2 = "") {
+        filename = f;
+        filename2 = f2;
 
-        advance();
+        tabs = 1;
+
+        if (filename != "") {
+            inputFile.open(filename);
+            outputFile.open(filename2);
+        }
+    }
+
+
+    void set(const std::string& f, const std::string& f2)
+    {
+        filename = f;
+        filename2 = f2;
+
+        if (filename != "") {
+            inputFile.open(filename);
+            outputFile.open(filename2);
+        }
     }
 
     void analyze() {
+        
+        advance(inputFile);
+
         Token token;
 
         while (currentChar != EOF) {

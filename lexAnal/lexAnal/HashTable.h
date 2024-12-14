@@ -5,7 +5,7 @@
 
 
 
-int hashToken(const Token& token, int capacity) {
+static int hashToken(const Token& token, int capacity) {
     int hashValue = 0;
 
     for (char ch : token.lexem) {
