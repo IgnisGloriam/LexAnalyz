@@ -395,4 +395,12 @@ public:
     void printTokens(const std::string& filename) {
         hashTable.print(filename);
     }
+
+    bool search(const Token& token) const {
+        return hashTable.search(token);
+    }
+
+    void insert(const Token& token) {
+        hashTable.insert(token);
+    }
 };

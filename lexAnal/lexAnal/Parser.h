@@ -7,11 +7,22 @@ using namespace std;
 class Parser
 {
 private:
+	bool def = 1;
+	int mglobal = 0;
+
+
+
+	string in;
+	string out;
+
+
 	Token lexeme;
 	Lexer lexer;
 	void getLexeme();
 
 	void error(Token l, string s);
+	void unierror(string s);
+
 
 	void Function(Node& n);
 	void Begin(Node& n);
@@ -40,3 +51,10 @@ public:
 
 };
 
+// 1. Все используемые во входном файле переменные должны быть объявлены, причем повторное объявление переменной не допускается.
+// 
+//
+// 
+// 9. Все обнаруженные ошибки должны быть указаны в выходном файле.
+// 
+// 10. В выходной файл записываем полный перевод исходного текста в его постфиксную запись.

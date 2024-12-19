@@ -15,17 +15,7 @@ Function
         Id
           h
         Varlist1
-          ,
-            Id
-              g
-            Varlist1
-              ,
-                Id
-                  h
-                Varlist1
-                  eps
-              Varlist
-          Varlist
+          eps
       ;
     Descriptions1
       Descriptions
@@ -34,92 +24,164 @@ Function
             int
           Varlist
             Id
-              g
+              h
             Varlist1
               ,
+              Varlist
                 Id
                   g
                 Varlist1
                   ,
+                  Varlist
                     Id
                       h
                     Varlist1
                       eps
-                  Varlist
-              Varlist
           ;
         Descriptions1
-          eps
+          Descriptions
+            Descr
+              Type
+                int
+              Varlist
+                Id
+                  g
+                Varlist1
+                  ,
+                  Varlist
+                    Id
+                      g
+                    Varlist1
+                      ,
+                      Varlist
+                        Id
+                          h
+                        Varlist1
+                          eps
+              ;
+            Descriptions1
+              eps
   Operators
     Op
-      if
-      (
-      Condition
-        Expr
-          SimpleExpr
-            Const
-              1
-          Expr1
-            eps
-        RelationOperations
-          ==
-        Expr
-          SimpleExpr
-            Const
-              1
-          Expr1
-            eps
-      )
-      {
-      Operators
-        Op
-          Id
-            h
-          =
-          Expr
-            SimpleExpr
-              (
-                SimpleExpr
-                  Const
-                    1
-                Expr1
-                  eps
-              Expr
-              )
-            Expr1
-              eps
-          ;
-        Operators1
+      Id
+        g
+      =
+      Expr
+        SimpleExpr
+          Const
+            3
+        Expr1
           eps
-      }
-      else
-      {
-      Operators
-        Op
-          Id
-            h
-          =
-          Expr
-            SimpleExpr
-              (
-                SimpleExpr
-                  Const
-                    1
-                Expr1
-                  eps
-              Expr
-              )
-            Expr1
-              eps
-          ;
-        Operators1
-          eps
-      }
+      ;
     Operators1
-      eps
+      Operators
+        Op
+          Id
+            ds
+          =
+          Expr
+            SimpleExpr
+              (
+              Expr
+                SimpleExpr
+                  Const
+                    3
+                Expr1
+                  +
+                  Expr
+                    SimpleExpr
+                      Const
+                        4
+                    Expr1
+                      eps
+              )
+            Expr1
+              eps
+          ;
+        Operators1
+          Operators
+            Op
+              if
+              (
+              Condition
+                Expr
+                  SimpleExpr
+                    Const
+                      1
+                  Expr1
+                    eps
+                RelationOperations
+                  ==
+                Expr
+                  SimpleExpr
+                    Const
+                      1
+                  Expr1
+                    eps
+              )
+              {
+              Operators
+                Op
+                  Id
+                    h
+                  =
+                  Expr
+                    SimpleExpr
+                      (
+                      Expr
+                        SimpleExpr
+                          Const
+                            1
+                        Expr1
+                          eps
+                      )
+                    Expr1
+                      eps
+                  ;
+                Operators1
+                  eps
+              }
+              else
+              {
+              Operators
+                Op
+                  Id
+                    h
+                  =
+                  Expr
+                    SimpleExpr
+                      (
+                      Expr
+                        SimpleExpr
+                          Const
+                            1
+                        Expr1
+                          eps
+                      )
+                    Expr1
+                      eps
+                  ;
+                Operators1
+                  eps
+              }
+            Operators1
+              Operators
+                Op
+                  Id
+                    f
+                  =
+                  Expr
+                    SimpleExpr
+                      Const
+                        5
+                    Expr1
+                      eps
+                  ;
+                Operators1
+                  eps
   End
     return
-      h
     Id
+      h
     ;
     }

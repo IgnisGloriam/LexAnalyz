@@ -80,9 +80,9 @@ public:
             if (table[index] == token) {
                 return true;
             }
-            if (table[index].type.empty()) {
-                return false;
-            }
+            //if (table[index].type.empty()) {
+            //    return false;
+            //}
             index = (index + 1) % capacity;
         }
         return false;

@@ -1,7 +1,11 @@
 int T ( ) {
+    int h ;
     int h , g , h ;
     int g , g , h ;
+    g = 3 ;
+    ds = ( 3 + 4 ) ;
     if ( 1 == 1 ) { h = ( 1 ) ; }
     else { h = ( 1 ) ; }
+    f = 5 ;
     return h ;
 }
