@@ -12,8 +12,7 @@ void Parser::error(Token l, string s)
 	cout << "Expected : " << s << " \n";
 	cout << "Received : " << l.type << ' ' << l.lexem << "   - lexeme\n";
 
-	std::ofstream fout;
-	fout.open(out);
+	
 
 	fout << "Error at " << lexer.getTab() << " line\n";
 	fout << "Expected : " << s << " \n";
@@ -24,8 +23,8 @@ void Parser::error(Token l, string s)
 
 void Parser::unierror(string s)
 {
-	std::ofstream fout;
-	fout.open(out);
+	//std::ofstream fout;
+	//fout.open(out);
 	cout << s;
 	fout << s;
 
@@ -56,6 +55,7 @@ void Parser::Function(Node& n)
 		n.trace += n.getSon(3).trace;
 
 		cout << n.trace;
+		fout << n.trace;
 	}
 	else {
 		error(lexeme, "Type");
@@ -524,6 +524,8 @@ Parser::Parser(const std::string& filename, const std::string& filename2) {
 	lexer.set(filename, filename2);
 	in = filename;
 	out = filename2;
+
+	fout.open(out);
 }
 
 Node Parser::parse()

@@ -12,9 +12,9 @@ int main() {
     Node root = p.parse();
 
     
-    std::ofstream outputFile;
-    outputFile.open("output.txt");
+    //std::ofstream outputFile;
+    //outputFile.open("output.txt");
 
-    root.print(0, outputFile);
+    //root.print(0, outputFile);
     return 0;
 }

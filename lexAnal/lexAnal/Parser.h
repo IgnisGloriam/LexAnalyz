@@ -10,7 +10,8 @@ private:
 	bool def = 1;
 	int mglobal = 0;
 
-
+	std::ofstream fout;
+	
 
 	string in;
 	string out;
